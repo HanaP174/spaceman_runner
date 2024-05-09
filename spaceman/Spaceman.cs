@@ -3,16 +3,14 @@ using System;
 
 public partial class Spaceman : CharacterBody2D
 {
-	// public const float Speed = 300.0f;
-	// public const float JumpVelocity = -400.0f;
 
-	private const float Gravity = 4200f;
+	private const float Gravity = 6200f;
 	private const float JumpSpeed = -1800f;
-	private AnimatedSprite2D animatedSprite;
+	private AnimatedSprite2D _animatedSpaceman;
 
 	public override void _Ready()
 	{
-		animatedSprite = GetNode<AnimatedSprite2D>("AnimatedSpaceman");
+		_animatedSpaceman = GetNode<AnimatedSprite2D>("AnimatedSpaceman");
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -22,13 +20,13 @@ public partial class Spaceman : CharacterBody2D
 		velocity.Y += Gravity * (float)delta;
 		if (IsOnFloor())
 		{
-			animatedSprite.Play("run");
+			_animatedSpaceman.Play("run");
 			if (Input.IsActionJustPressed("ui_accept"))
 				velocity.Y = JumpSpeed;
 		}
 		else
 		{
-			animatedSprite.Play("jump");
+			_animatedSpaceman.Play("jump");
 		}
 
 		// Get the input direction and handle the movement/deceleration.
