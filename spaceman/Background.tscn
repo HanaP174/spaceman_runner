@@ -1,0 +1,52 @@
+[gd_scene load_steps=5 format=3 uid="uid://b33yviw6wfyoe"]
+
+[ext_resource type="Texture2D" uid="uid://8f6rik0wthv7" path="res://sprites/background/T_PurpleBackground_Version1_Layer1.png" id="1_fxlb2"]
+[ext_resource type="Texture2D" uid="uid://dytc5l1nnuwqy" path="res://sprites/background/T_PurpleBackground_Version1_Layer2.png" id="2_r8mwj"]
+[ext_resource type="Texture2D" uid="uid://n21dw5gp0l44" path="res://sprites/background/T_PurpleBackground_Version1_Layer3.png" id="3_tp3v7"]
+[ext_resource type="Texture2D" uid="uid://bttq4mkma0tpt" path="res://sprites/background/T_PurpleBackground_Version1_Layer4.png" id="4_ftn2l"]
+
+[node name="Background" type="ParallaxBackground"]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0.5, 1)
+motion_mirroring = Vector2(1152, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxLayer"]
+position = Vector2(1152.01, -0.000128598)
+rotation = 1.5708
+scale = Vector2(0.316459, 0.28131)
+texture = ExtResource("1_fxlb2")
+centered = false
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0.6, 1)
+motion_mirroring = Vector2(1152, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxLayer2"]
+position = Vector2(1152.01, -0.000128686)
+rotation = 1.5708
+scale = Vector2(0.316459, 0.281253)
+texture = ExtResource("2_r8mwj")
+centered = false
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0.7, 1)
+motion_mirroring = Vector2(1152, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxLayer3"]
+position = Vector2(1152.01, -0.000128686)
+rotation = 1.5708
+scale = Vector2(0.316459, 0.281253)
+texture = ExtResource("3_tp3v7")
+centered = false
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0.8, 1)
+motion_mirroring = Vector2(1152, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxLayer4"]
+position = Vector2(1152.01, -0.000128686)
+rotation = 1.5708
+scale = Vector2(0.316459, 0.281253)
+texture = ExtResource("4_ftn2l")
+centered = false

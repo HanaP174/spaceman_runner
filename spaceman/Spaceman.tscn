@@ -1,0 +1,78 @@
+[gd_scene load_steps=15 format=3 uid="uid://b74uklbalgmdw"]
+
+[ext_resource type="Texture2D" uid="uid://bn2utuwlkwxc1" path="res://sprites/spaceman/jump/Jump_000.png" id="1_tbs6h"]
+[ext_resource type="Texture2D" uid="uid://cj87mbq8bxn7c" path="res://sprites/spaceman/jump/Jump_001.png" id="2_pfr3b"]
+[ext_resource type="Texture2D" uid="uid://by601wiqyr0cg" path="res://sprites/spaceman/jump/Jump_002.png" id="3_ugpsr"]
+[ext_resource type="Texture2D" uid="uid://cn7lyjtvixfp7" path="res://sprites/spaceman/jump/Jump_003.png" id="4_wwagr"]
+[ext_resource type="Texture2D" uid="uid://mc4edwr8lt3u" path="res://sprites/spaceman/jump/Jump_004.png" id="5_ig62r"]
+[ext_resource type="Texture2D" uid="uid://yfcmpwmhdefa" path="res://sprites/spaceman/jump/Jump_005.png" id="6_b7mo5"]
+[ext_resource type="Texture2D" uid="uid://cajgqhri1g4si" path="res://sprites/spaceman/run/Run_000.png" id="7_qh6yx"]
+[ext_resource type="Texture2D" uid="uid://bajbnshx40c5l" path="res://sprites/spaceman/run/Run_001.png" id="8_a7221"]
+[ext_resource type="Texture2D" uid="uid://dxuyoepr54cje" path="res://sprites/spaceman/run/Run_002.png" id="9_sa34g"]
+[ext_resource type="Texture2D" uid="uid://dxol5m0eh0sr3" path="res://sprites/spaceman/run/Run_003.png" id="10_ku1jh"]
+[ext_resource type="Texture2D" uid="uid://bv3p16hml61pb" path="res://sprites/spaceman/run/Run_004.png" id="11_h6dsx"]
+[ext_resource type="Texture2D" uid="uid://bpii2qyusefee" path="res://sprites/spaceman/run/Run_005.png" id="12_gfr3w"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rkcu4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_tbs6h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_pfr3b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ugpsr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_wwagr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_ig62r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_b7mo5")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_qh6yx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_a7221")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_sa34g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_ku1jh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_h6dsx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_gfr3w")
+}],
+"loop": true,
+"name": &"run",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_om53e"]
+size = Vector2(40, 64)
+
+[node name="Spaceman" type="CharacterBody2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_rkcu4")
+animation = &"run"
+autoplay = "run"
+
+[node name="RunCollision" type="CollisionShape2D" parent="."]
+position = Vector2(4, 24)
+shape = SubResource("RectangleShape2D_om53e")
