@@ -1,14 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://cot87blry38gj"]
+[gd_scene load_steps=4 format=3 uid="uid://cot87blry38gj"]
 
 [ext_resource type="PackedScene" uid="uid://b33yviw6wfyoe" path="res://Background.tscn" id="1_qqqyn"]
 [ext_resource type="PackedScene" uid="uid://b74uklbalgmdw" path="res://Spaceman.tscn" id="2_bnovc"]
+[ext_resource type="PackedScene" uid="uid://c0qiw38tus2k4" path="res://Asteroid.tscn" id="2_h5cil"]
 
 [node name="Playground" type="Node2D"]
 
 [node name="Background" parent="." instance=ExtResource("1_qqqyn")]
 
-[node name="Spaceman" parent="." instance=ExtResource("2_bnovc")]
-position = Vector2(148, 393)
-
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(576, 324)
+
+[node name="Asteroid" parent="." instance=ExtResource("2_h5cil")]
+position = Vector2(100, 557)
+
+[node name="Spaceman" parent="." instance=ExtResource("2_bnovc")]
+position = Vector2(62, 401)
