@@ -18,6 +18,7 @@ public partial class Playground : Node2D
 	private Spaceman _spaceman;
 	private Camera _camera;
 	private Spawner _spawner;
+	private CanvasLayer _scoreCanvas;
 
 	private Array<Node2D> _spawnedObjects = new Array<Node2D>();
 
@@ -26,6 +27,7 @@ public partial class Playground : Node2D
 		_spaceman = GetNode<Spaceman>("Spaceman");
 		_camera = GetNode<Camera>("Camera");
 		_spawner = GetNode<Spawner>("Spawner");
+		_scoreCanvas = GetNode<CanvasLayer>("ScoreCanvas");
 		
 		_spawner.ObjectAdded += AddObject;
 
@@ -101,5 +103,12 @@ public partial class Playground : Node2D
 	{
 		_score++;
 		RemoveSpawnedObject(star);
+		UpdateScore();
+	}
+
+	private void UpdateScore()
+	{
+		var scoreLabel = _scoreCanvas.GetNode<Label>("ScoreLabel");
+		scoreLabel.Text = "SCORE: " + _score;
 	}
 }
