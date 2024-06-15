@@ -7,16 +7,19 @@ public partial class Spawner : Node2D
 	private AsteroidBounds _bounds;
 
 	private Random _random;
+	private PackedScene _starScene;
 	private PackedScene _asteroidScene;
 	private Vector2 _asteroidLastPosition = new Vector2(100, 557);
 
-	private const float MaxDistance = 390f;
-	private const float MinDistance = 340f;
+	private const float MaxDistance = 420f;
+	private const float MinDistance = 350f;
+	private const float StarAsteroidDistance = 160f;
 
 	public override void _Ready()
 	{
 		_random = new Random();
 		_asteroidScene = ResourceLoader.Load<PackedScene>("res://Asteroid.tscn");
+		_starScene = ResourceLoader.Load<PackedScene>("res://Star.tscn");
 	}
 
 	public void SpawnGroupOfAsteroids(int count)
@@ -36,12 +39,23 @@ public partial class Spawner : Node2D
 		asteroidPosition.Y = _random.Next(Mathf.FloorToInt(_bounds.YMin), Mathf.FloorToInt(_bounds.YMax));
 
 		_asteroidLastPosition = asteroidPosition;
-		Console.WriteLine(_asteroidLastPosition);
 
 		if (_asteroidScene.Instantiate() is StaticBody2D asteroid)
 		{
 			asteroid.Position = asteroidPosition;
 			GetParent().AddChild(asteroid);
+		}
+		
+		SpawnStar();
+	}
+
+	private void SpawnStar()
+	{
+		var starPosition = new Vector2(_asteroidLastPosition.X, _asteroidLastPosition.Y - StarAsteroidDistance);
+		if (_starScene.Instantiate() is StaticBody2D star)
+		{
+			star.Position = starPosition;
+			GetParent().AddChild(star);
 		}
 	}
 }
