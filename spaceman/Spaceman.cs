@@ -8,7 +8,7 @@ public partial class Spaceman : CharacterBody2D
 	public delegate void FeltEventHandler(); 
 	
 	private const float Gravity = 6200f;
-	private const float JumpSpeed = -1800f;
+	private const float JumpSpeed = -1500f;
 	private const float CameraOffset = 490f;
 	private AnimatedSprite2D _animatedSpaceman;
 	private bool _wasOnFloor = false;
@@ -61,7 +61,7 @@ public partial class Spaceman : CharacterBody2D
 
 	private void HandleFalling(Vector2 velocity)
 	{
-		if (!_isJumping && velocity.Y > 0 && _initialized)
+		if ((!_isJumping && velocity.Y > 1000 && _initialized) || (_isJumping && velocity.Y > 1000))
 		{
 			if (!_isFalling)
 				_fallTimer.Start();

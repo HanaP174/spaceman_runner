@@ -15,7 +15,7 @@ public partial class Spawner : Node2D
 	private Vector2 _asteroidLastPosition = new Vector2(100, 557);
 
 	private const float MaxDistance = 420f;
-	private const float MinDistance = 350f;
+	private const float MinDistance = 380f;
 	private const float StarAsteroidDistance = 160f;
 
 	public override void _Ready()
