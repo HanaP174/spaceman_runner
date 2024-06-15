@@ -1,3 +1,4 @@
+using System;
 using Godot;
 using Godot.Collections;
 
@@ -17,7 +18,7 @@ public partial class Playground : Node2D
 	private Camera _camera;
 	private Spawner _spawner;
 
-	private Array<StaticBody2D> _spawnedObjects = new Array<StaticBody2D>();
+	private Array<Node2D> _spawnedObjects = new Array<Node2D>();
 
 	public override void _Ready()
 	{
@@ -63,14 +64,14 @@ public partial class Playground : Node2D
 		}
 	}
 	
-	private void AddObject(StaticBody2D body)
+	private void AddObject(Node2D body)
 	{
 		_spawnedObjects.Add(body);
 	}
 
 	private void CleanNotVisibleObjects()
 	{
-		var toRemove = new Array<StaticBody2D>();
+		var toRemove = new Array<Node2D>();
 		foreach (var obj in _spawnedObjects)
 		{
 			if (obj.Position.X < (_camera.Position.X - GetViewport().GetVisibleRect().Size.X))

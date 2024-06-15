@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class Star : StaticBody2D
+public partial class Star : Area2D
 {
 	private AnimatedSprite2D _animatedStar;
 

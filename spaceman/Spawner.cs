@@ -7,7 +7,7 @@ public partial class Spawner : Node2D
 	private AsteroidBounds _bounds;
 	
 	[Signal]
-	public delegate void ObjectAddedEventHandler(StaticBody2D body); 
+	public delegate void ObjectAddedEventHandler(Node2D body); 
 
 	private Random _random;
 	private PackedScene _starScene;
@@ -55,7 +55,7 @@ public partial class Spawner : Node2D
 	public void SpawnStar()
 	{
 		var starPosition = new Vector2(_asteroidLastPosition.X, _asteroidLastPosition.Y - StarAsteroidDistance);
-		if (_starScene.Instantiate() is StaticBody2D star)
+		if (_starScene.Instantiate() is Area2D star)
 		{
 			star.Position = starPosition;
 			GetParent().AddChild(star);

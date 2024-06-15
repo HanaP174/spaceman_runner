@@ -119,7 +119,7 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_dl8bh"]
 radius = 16.0
 
-[node name="Star" type="StaticBody2D"]
+[node name="Star" type="Area2D" groups=["Star"]]
 script = ExtResource("1_esurv")
 
 [node name="AnimatedStar" type="AnimatedSprite2D" parent="."]
