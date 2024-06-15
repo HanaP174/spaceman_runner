@@ -1,3 +1,4 @@
+using System;
 using Godot;
 
 public partial class Playground : Node2D
@@ -6,17 +7,22 @@ public partial class Playground : Node2D
 	private static readonly Vector2I SpacemanStartPos = new Vector2I(62, 401);
 
 	private float _speed;
-	private const float StartSpeed = 10.0f;
+	private double _lastSpawnTime = 6.0;
+
+	private const float StartSpeed = 5.0f;
 	private const int MaxSpeed = 25;
+	private const double TimeBetweenSpawning = 6.0;
 
 	private Spaceman _spaceman;
 	private Camera _camera;
+	private Spawner _spawner;
 
-	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		_spaceman = GetNode<Spaceman>("Spaceman");
 		_camera = GetNode<Camera>("Camera");
+		_spawner = GetNode<Spawner>("Spawner");
+
 		if (_spaceman != null && _camera != null)
 		{
 			NewGame();
@@ -28,13 +34,21 @@ public partial class Playground : Node2D
 		_spaceman.Position = SpacemanStartPos;
 		_spaceman.Velocity = new Vector2I(0, 0);
 		_camera.Position = CamStartPos;
+		_spawner.SpawnGroupOfAsteroids(4);
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
 		_speed = StartSpeed;
 		_spaceman.Move(_speed);
 		_camera.Move(_speed);
+		
+		_lastSpawnTime += delta * _speed;
+		if (_lastSpawnTime >= TimeBetweenSpawning)
+		{
+			_spawner.SpawnAsteroid();
+			Console.WriteLine("spawning");
+			_lastSpawnTime = 0;
+		}
 	}
 }

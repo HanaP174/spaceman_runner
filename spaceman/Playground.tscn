@@ -1,10 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://cot87blry38gj"]
+[gd_scene load_steps=8 format=3 uid="uid://cot87blry38gj"]
 
 [ext_resource type="Script" path="res://Playground.cs" id="1_fxw82"]
 [ext_resource type="PackedScene" uid="uid://b33yviw6wfyoe" path="res://Background.tscn" id="1_qqqyn"]
 [ext_resource type="PackedScene" uid="uid://b74uklbalgmdw" path="res://Spaceman.tscn" id="2_bnovc"]
 [ext_resource type="PackedScene" uid="uid://c0qiw38tus2k4" path="res://Asteroid.tscn" id="2_h5cil"]
 [ext_resource type="Script" path="res://Camera.cs" id="3_kg810"]
+[ext_resource type="Script" path="res://AsteroidBounds.cs" id="6_ln3tv"]
+[ext_resource type="Script" path="res://Spawner.cs" id="7_0u0bu"]
 
 [node name="Playground" type="Node2D"]
 script = ExtResource("1_fxw82")
@@ -20,3 +22,16 @@ position = Vector2(100, 557)
 
 [node name="Spaceman" parent="." instance=ExtResource("2_bnovc")]
 position = Vector2(62, 401)
+
+[node name="AsteroidBounds" type="Node2D" parent="."]
+script = ExtResource("6_ln3tv")
+
+[node name="TopLeft" type="Marker2D" parent="AsteroidBounds"]
+position = Vector2(0, 367)
+
+[node name="BottomRight" type="Marker2D" parent="AsteroidBounds"]
+position = Vector2(2304, 578)
+
+[node name="Spawner" type="Node2D" parent="." node_paths=PackedStringArray("_bounds")]
+script = ExtResource("7_0u0bu")
+_bounds = NodePath("../AsteroidBounds")
