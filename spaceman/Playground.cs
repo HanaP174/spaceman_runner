@@ -45,9 +45,9 @@ public partial class Playground : Node2D
 	public override void _Process(double delta)
 	{
 		_speed = StartSpeed;
-		_spaceman.Move(_speed);
 		_camera.Move(_speed);
-		
+		_spaceman.Move(_camera.Position.X);
+
 		CleanNotVisibleObjects();
 		
 		SpawnObjects(delta);

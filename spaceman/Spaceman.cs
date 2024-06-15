@@ -6,6 +6,7 @@ public partial class Spaceman : CharacterBody2D
 
 	private const float Gravity = 6200f;
 	private const float JumpSpeed = -1800f;
+	private const float CameraOffset = 490f;
 	private AnimatedSprite2D _animatedSpaceman;
 
 	public override void _Ready()
@@ -45,10 +46,10 @@ public partial class Spaceman : CharacterBody2D
 		MoveAndSlide();
 	}
 
-	public void Move(float speed)
+	public void Move(float cameraPosX)
 	{
 		var position = Position;
-		position.X += speed;
+		position.X = cameraPosX - CameraOffset;
 		Position = position;
 	}
 }
