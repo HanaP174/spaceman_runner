@@ -3,15 +3,24 @@ using System;
 
 public partial class Spaceman : CharacterBody2D
 {
-
+	
+	[Signal]
+	public delegate void FeltEventHandler(); 
+	
 	private const float Gravity = 6200f;
 	private const float JumpSpeed = -1800f;
 	private const float CameraOffset = 490f;
 	private AnimatedSprite2D _animatedSpaceman;
+	private bool _wasOnFloor = false;
+	private bool _isJumping = false;
+	private bool _isFalling = false;
+	private bool _initialized = false;
+	private Timer _fallTimer;
 
 	public override void _Ready()
 	{
 		_animatedSpaceman = GetNode<AnimatedSprite2D>("AnimatedSpaceman");
+		_fallTimer = GetNode<Timer>("FallTimer");
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -21,29 +30,54 @@ public partial class Spaceman : CharacterBody2D
 		velocity.Y += Gravity * (float)delta;
 		if (IsOnFloor())
 		{
+			Init();
 			_animatedSpaceman.Play("run");
 			if (Input.IsActionJustPressed("ui_accept"))
+			{
 				velocity.Y = JumpSpeed;
+				_isJumping = true;
+				_isFalling = false;
+				_animatedSpaceman.Play("jump");
+			}
+			_initialized = true;
 		}
 		else
 		{
-			_animatedSpaceman.Play("jump");
+			HandleFalling(velocity);
 		}
-
-		// Get the input direction and handle the movement/deceleration.
-		// As good practice, you should replace UI actions with custom gameplay actions.
-		// Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
-		// if (direction != Vector2.Zero)
-		// {
-		// 	velocity.X = direction.X * Speed;
-		// }
-		// else
-		// {
-		// 	velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
-		// }
-		//
 		Velocity = velocity;
 		MoveAndSlide();
+	}
+
+	private void Init()
+	{
+		if (!_wasOnFloor)
+		{
+			_wasOnFloor = true;
+			_isJumping = false;
+			_isFalling = false;
+		}
+	}
+
+	private void HandleFalling(Vector2 velocity)
+	{
+		if (!_isJumping && velocity.Y > 0 && _initialized)
+		{
+			if (!_isFalling)
+				_fallTimer.Start();
+
+			_isFalling = true;
+		}
+
+		_wasOnFloor = false;
+	}
+
+	private void OnFallTimerTimeout()
+	{
+		if (_isFalling)
+		{
+			EmitSignal(SignalName.Felt);
+		}
 	}
 
 	public void Move(float cameraPosX)

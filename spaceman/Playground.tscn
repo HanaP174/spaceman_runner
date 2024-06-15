@@ -22,7 +22,7 @@ script = ExtResource("3_kg810")
 position = Vector2(100, 557)
 
 [node name="Spaceman" parent="." instance=ExtResource("2_bnovc")]
-position = Vector2(84, 401)
+position = Vector2(49, 422)
 
 [node name="AsteroidBounds" type="Node2D" parent="."]
 script = ExtResource("6_ln3tv")

@@ -4,8 +4,8 @@ using Godot.Collections;
 
 public partial class Playground : Node2D
 {
-	private static readonly Vector2I CamStartPos = new Vector2I(576, 324);
-	private static readonly Vector2I SpacemanStartPos = new Vector2I(84, 401);
+	private static readonly Vector2 CamStartPos = new Vector2(576, 324);
+	private static readonly Vector2 SpacemanStartPos = new Vector2(49, 422);
 
 	private float _speed;
 	private double _lastSpawnTime = 5.0;
@@ -30,6 +30,7 @@ public partial class Playground : Node2D
 		_scoreCanvas = GetNode<CanvasLayer>("ScoreCanvas");
 		
 		_spawner.ObjectAdded += AddObject;
+		_spaceman.Felt += GameOver;
 
 		if (_spaceman != null && _camera != null)
 		{
@@ -40,7 +41,7 @@ public partial class Playground : Node2D
 	private void NewGame()
 	{
 		_spaceman.Position = SpacemanStartPos;
-		_spaceman.Velocity = new Vector2I(0, 0);
+		_spaceman.Velocity = Vector2.Zero;
 		_camera.Position = CamStartPos;
 		_spawner.SpawnGroupOfAsteroids(4);
 	}
@@ -110,5 +111,10 @@ public partial class Playground : Node2D
 	{
 		var scoreLabel = _scoreCanvas.GetNode<Label>("ScoreLabel");
 		scoreLabel.Text = "SCORE: " + _score;
+	}
+
+	private void GameOver()
+	{
+		GetTree().Paused = true;
 	}
 }

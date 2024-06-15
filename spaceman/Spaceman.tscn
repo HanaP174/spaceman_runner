@@ -64,7 +64,8 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_om53e"]
-size = Vector2(40, 64)
+custom_solver_bias = 1.0
+size = Vector2(52, 58.7318)
 
 [node name="Spaceman" type="CharacterBody2D"]
 script = ExtResource("1_voxuv")
@@ -74,8 +75,17 @@ scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_rkcu4")
 animation = &"run"
 autoplay = "run"
+frame = 4
+frame_progress = 0.612611
 
 [node name="RunCollision" type="CollisionShape2D" parent="."]
 z_index = 1
-position = Vector2(4, 24)
+position = Vector2(2, 22.4888)
+scale = Vector2(1, 1.20927)
 shape = SubResource("RectangleShape2D_om53e")
+
+[node name="FallTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[connection signal="timeout" from="FallTimer" to="." method="OnFallTimerTimeout"]

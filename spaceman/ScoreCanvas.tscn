@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://c2cjawy2vgtg0"]
+
+[ext_resource type="FontFile" uid="uid://co2uop2d6fkpb" path="res://font/Retro Gaming.ttf" id="1_mpun4"]
+
+[node name="ScoreCanvas" type="CanvasLayer"]
+
+[node name="ScoreLabel" type="Label" parent="."]
+offset_right = 183.0
+offset_bottom = 51.0
+theme_override_fonts/font = ExtResource("1_mpun4")
+theme_override_font_sizes/font_size = 40
+text = "SCORE: "
+horizontal_alignment = 1
+vertical_alignment = 1
