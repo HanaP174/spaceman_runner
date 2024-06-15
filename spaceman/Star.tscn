@@ -129,3 +129,5 @@ animation = &"shining"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_dl8bh")
+
+[connection signal="body_entered" from="." to="." method="OnBodyEntered"]

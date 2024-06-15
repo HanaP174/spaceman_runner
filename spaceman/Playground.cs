@@ -9,6 +9,7 @@ public partial class Playground : Node2D
 
 	private float _speed;
 	private double _lastSpawnTime = 5.0;
+	private int _score = 0;
 
 	private const float StartSpeed = 7.0f;
 	private const int MaxSpeed = 25;
@@ -67,6 +68,10 @@ public partial class Playground : Node2D
 	private void AddObject(Node2D body)
 	{
 		_spawnedObjects.Add(body);
+		if (body is Star star)
+		{
+			star.StarCollected += StarCollected;
+		}
 	}
 
 	private void CleanNotVisibleObjects()
@@ -81,9 +86,20 @@ public partial class Playground : Node2D
 		}
 		foreach (var obj in toRemove)
 		{
-			obj.QueueFree();
-			_spawnedObjects.Remove(obj);
+			RemoveSpawnedObject(obj);
 		}
 		toRemove.Clear();
+	}
+
+	private void RemoveSpawnedObject(Node2D obj)
+	{
+		obj.QueueFree();
+		_spawnedObjects.Remove(obj);
+	}
+
+	private void StarCollected(Area2D star)
+	{
+		_score++;
+		RemoveSpawnedObject(star);
 	}
 }
