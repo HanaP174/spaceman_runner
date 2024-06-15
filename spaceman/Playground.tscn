@@ -1,15 +1,19 @@
-[gd_scene load_steps=4 format=3 uid="uid://cot87blry38gj"]
+[gd_scene load_steps=6 format=3 uid="uid://cot87blry38gj"]
 
+[ext_resource type="Script" path="res://Playground.cs" id="1_fxw82"]
 [ext_resource type="PackedScene" uid="uid://b33yviw6wfyoe" path="res://Background.tscn" id="1_qqqyn"]
 [ext_resource type="PackedScene" uid="uid://b74uklbalgmdw" path="res://Spaceman.tscn" id="2_bnovc"]
 [ext_resource type="PackedScene" uid="uid://c0qiw38tus2k4" path="res://Asteroid.tscn" id="2_h5cil"]
+[ext_resource type="Script" path="res://Camera.cs" id="3_kg810"]
 
 [node name="Playground" type="Node2D"]
+script = ExtResource("1_fxw82")
 
 [node name="Background" parent="." instance=ExtResource("1_qqqyn")]
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera" type="Camera2D" parent="."]
 position = Vector2(576, 324)
+script = ExtResource("3_kg810")
 
 [node name="Asteroid" parent="." instance=ExtResource("2_h5cil")]
 position = Vector2(100, 557)

@@ -44,4 +44,11 @@ public partial class Spaceman : CharacterBody2D
 		Velocity = velocity;
 		MoveAndSlide();
 	}
+
+	public void Move(float speed)
+	{
+		var position = Position;
+		position.X += speed;
+		Position = position;
+	}
 }
