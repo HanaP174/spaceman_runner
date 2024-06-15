@@ -1,5 +1,5 @@
-using System;
 using Godot;
+using Godot.Collections;
 
 public partial class Playground : Node2D
 {
@@ -17,11 +17,15 @@ public partial class Playground : Node2D
 	private Camera _camera;
 	private Spawner _spawner;
 
+	private Array<StaticBody2D> _spawnedObjects = new Array<StaticBody2D>();
+
 	public override void _Ready()
 	{
 		_spaceman = GetNode<Spaceman>("Spaceman");
 		_camera = GetNode<Camera>("Camera");
 		_spawner = GetNode<Spawner>("Spawner");
+		
+		_spawner.ObjectAdded += AddObject;
 
 		if (_spaceman != null && _camera != null)
 		{
@@ -40,14 +44,45 @@ public partial class Playground : Node2D
 	public override void _Process(double delta)
 	{
 		_speed = StartSpeed;
-		// _spaceman.Move(_speed);
-		// _camera.Move(_speed);
+		_spaceman.Move(_speed);
+		_camera.Move(_speed);
 		
+		CleanNotVisibleObjects();
+		
+		SpawnObjects(delta);
+	}
+
+	private void SpawnObjects(double delta)
+	{
 		_lastSpawnTime += delta * _speed;
 		if (_lastSpawnTime >= TimeBetweenSpawning)
 		{
 			_spawner.SpawnAsteroid();
+			_spawner.SpawnStar();
 			_lastSpawnTime = 0;
 		}
+	}
+	
+	private void AddObject(StaticBody2D body)
+	{
+		_spawnedObjects.Add(body);
+	}
+
+	private void CleanNotVisibleObjects()
+	{
+		var toRemove = new Array<StaticBody2D>();
+		foreach (var obj in _spawnedObjects)
+		{
+			if (obj.Position.X < (_camera.Position.X - GetViewport().GetVisibleRect().Size.X))
+			{
+				toRemove.Add(obj);
+			}
+		}
+		foreach (var obj in toRemove)
+		{
+			obj.QueueFree();
+			_spawnedObjects.Remove(obj);
+		}
+		toRemove.Clear();
 	}
 }

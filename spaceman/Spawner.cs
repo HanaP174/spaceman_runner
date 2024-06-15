@@ -5,6 +5,9 @@ public partial class Spawner : Node2D
 {
 	[Export]
 	private AsteroidBounds _bounds;
+	
+	[Signal]
+	public delegate void ObjectAddedEventHandler(StaticBody2D body); 
 
 	private Random _random;
 	private PackedScene _starScene;
@@ -27,6 +30,7 @@ public partial class Spawner : Node2D
 		for (int i = 0; i < count; i++)
 		{
 			SpawnAsteroid();
+			SpawnStar();
 		}
 	}
 
@@ -44,18 +48,18 @@ public partial class Spawner : Node2D
 		{
 			asteroid.Position = asteroidPosition;
 			GetParent().AddChild(asteroid);
+			EmitSignal(SignalName.ObjectAdded, asteroid);
 		}
-		
-		SpawnStar();
 	}
 
-	private void SpawnStar()
+	public void SpawnStar()
 	{
 		var starPosition = new Vector2(_asteroidLastPosition.X, _asteroidLastPosition.Y - StarAsteroidDistance);
 		if (_starScene.Instantiate() is StaticBody2D star)
 		{
 			star.Position = starPosition;
 			GetParent().AddChild(star);
+			EmitSignal(SignalName.ObjectAdded, star);
 		}
 	}
 }
