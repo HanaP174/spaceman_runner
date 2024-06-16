@@ -7,22 +7,28 @@ public partial class Spawner : Node2D
 	private AsteroidBounds _bounds;
 	
 	[Signal]
-	public delegate void ObjectAddedEventHandler(Node2D body); 
-
-	private Random _random;
-	private PackedScene _starScene;
-	private PackedScene _asteroidScene;
-	private Vector2 _asteroidLastPosition = new Vector2(100, 557);
+	public delegate void ObjectAddedEventHandler(Node2D body);
 
 	private const float MaxDistance = 420f;
 	private const float MinDistance = 380f;
 	private const float StarAsteroidDistance = 160f;
+	private static readonly Vector2 FirstAsteroidPosition = new Vector2(100, 557);
+
+	private Random _random;
+	private PackedScene _starScene;
+	private PackedScene _asteroidScene;
+	private Vector2 _asteroidLastPosition = FirstAsteroidPosition;
 
 	public override void _Ready()
 	{
 		_random = new Random();
 		_asteroidScene = ResourceLoader.Load<PackedScene>("res://Asteroid.tscn");
 		_starScene = ResourceLoader.Load<PackedScene>("res://Star.tscn");
+	}
+
+	public void RestartPosition()
+	{
+		_asteroidLastPosition = FirstAsteroidPosition;
 	}
 
 	public void SpawnGroupOfAsteroids(int count)

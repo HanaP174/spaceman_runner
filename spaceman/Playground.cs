@@ -5,7 +5,7 @@ using Godot.Collections;
 public partial class Playground : Node2D
 {
 	private static readonly Vector2 CamStartPos = new Vector2(576, 324);
-	private static readonly Vector2 SpacemanStartPos = new Vector2(49, 422);
+	private static readonly Vector2 SpacemanStartPos = new Vector2(50, 391);
 
 	private double _lastSpawnTime = 5.0;
 	private int _score = 0;
@@ -18,6 +18,7 @@ public partial class Playground : Node2D
 	private Spawner _spawner;
 	private CanvasLayer _scoreCanvas;
 	private GameOverCanvas _gameOverCanvas;
+	private StartGameCanvas _startGameCanvas;
 
 	private Array<Node2D> _spawnedObjects = new Array<Node2D>();
 
@@ -28,24 +29,26 @@ public partial class Playground : Node2D
 		_spawner = GetNode<Spawner>("Spawner");
 		_scoreCanvas = GetNode<CanvasLayer>("ScoreCanvas");
 		_gameOverCanvas = GetNode<GameOverCanvas>("GameOverCanvas");
+		_startGameCanvas = GetNode<StartGameCanvas>("StartGameCanvas");
 		
 		_spawner.ObjectAdded += AddObject;
 		_spaceman.Felt += GameOver;
 		_gameOverCanvas.Restart += RestartGame;
 		_gameOverCanvas.Quit += QuitGame;
+		_startGameCanvas.StartGame += NewGame;
+		
+		_spawner.SpawnGroupOfAsteroids(4);
 
-		if (_spaceman != null && _camera != null)
-		{
-			NewGame();
-		}
+		GetTree().Paused = true;
 	}
 
 	private void NewGame()
 	{
+		_startGameCanvas.Hide();
 		_spaceman.Position = SpacemanStartPos;
 		_spaceman.Velocity = Vector2.Zero;
 		_camera.Position = CamStartPos;
-		_spawner.SpawnGroupOfAsteroids(4);
+		GetTree().Paused = false;
 	}
 
 	public override void _Process(double delta)
@@ -129,9 +132,24 @@ public partial class Playground : Node2D
 
 	private void RestartGame()
 	{
-		_spawnedObjects.Clear();
-		NewGame();
 		_gameOverCanvas.Hide();
-		GetTree().Paused = false;
+		RemoveAllObjectsBeforeRestart();
+		_spawner.RestartPosition();
+		_spawner.SpawnGroupOfAsteroids(4);
+		_startGameCanvas.Show();
+	}
+
+	private void RemoveAllObjectsBeforeRestart()
+	{
+		var toRemove = new Array<Node2D>();
+		foreach (var obj in _spawnedObjects)
+		{
+			toRemove.Add(obj);
+		}
+
+		foreach (var obj in toRemove)
+		{
+			RemoveSpawnedObject(obj);
+		}
 	}
 }
