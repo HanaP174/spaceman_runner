@@ -7,12 +7,10 @@ public partial class Playground : Node2D
 	private static readonly Vector2 CamStartPos = new Vector2(576, 324);
 	private static readonly Vector2 SpacemanStartPos = new Vector2(49, 422);
 
-	private float _speed;
 	private double _lastSpawnTime = 5.0;
 	private int _score = 0;
 
-	private const float StartSpeed = 7.0f;
-	private const int MaxSpeed = 25;
+	private const float Speed = 7.0f;
 	private const double TimeBetweenSpawning = 5.0;
 
 	private Spaceman _spaceman;
@@ -52,8 +50,7 @@ public partial class Playground : Node2D
 
 	public override void _Process(double delta)
 	{
-		_speed = StartSpeed; // todo change
-		_camera.Move(_speed);
+		_camera.Move(Speed);
 		_spaceman.Move(_camera.Position.X);
 
 		CleanNotVisibleObjects();
@@ -63,7 +60,7 @@ public partial class Playground : Node2D
 
 	private void SpawnObjects(double delta)
 	{
-		_lastSpawnTime += delta * _speed;
+		_lastSpawnTime += delta * Speed;
 		if (_lastSpawnTime >= TimeBetweenSpawning)
 		{
 			_spawner.SpawnAsteroid();
