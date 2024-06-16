@@ -8,5 +8,6 @@
   <ItemGroup>
     <Content Include="agilePlan.md" />
     <Content Include="idea.md" />
+    <Content Include="resources.md" />
   </ItemGroup>
 </Project>
