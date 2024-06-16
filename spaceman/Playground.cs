@@ -19,6 +19,7 @@ public partial class Playground : Node2D
 	private Camera _camera;
 	private Spawner _spawner;
 	private CanvasLayer _scoreCanvas;
+	private GameOverCanvas _gameOverCanvas;
 
 	private Array<Node2D> _spawnedObjects = new Array<Node2D>();
 
@@ -28,9 +29,12 @@ public partial class Playground : Node2D
 		_camera = GetNode<Camera>("Camera");
 		_spawner = GetNode<Spawner>("Spawner");
 		_scoreCanvas = GetNode<CanvasLayer>("ScoreCanvas");
+		_gameOverCanvas = GetNode<GameOverCanvas>("GameOverCanvas");
 		
 		_spawner.ObjectAdded += AddObject;
 		_spaceman.Felt += GameOver;
+		_gameOverCanvas.Restart += RestartGame;
+		_gameOverCanvas.Quit += QuitGame;
 
 		if (_spaceman != null && _camera != null)
 		{
@@ -48,7 +52,7 @@ public partial class Playground : Node2D
 
 	public override void _Process(double delta)
 	{
-		_speed = StartSpeed;
+		_speed = StartSpeed; // todo change
 		_camera.Move(_speed);
 		_spaceman.Move(_camera.Position.X);
 
@@ -116,5 +120,21 @@ public partial class Playground : Node2D
 	private void GameOver()
 	{
 		GetTree().Paused = true;
+		_gameOverCanvas.Show();
+	}
+	
+	private void QuitGame()
+	{
+		_spawnedObjects.Clear();
+		GetTree().Paused = false;
+		GetTree().Quit();
+	}
+
+	private void RestartGame()
+	{
+		_spawnedObjects.Clear();
+		NewGame();
+		_gameOverCanvas.Hide();
+		GetTree().Paused = false;
 	}
 }

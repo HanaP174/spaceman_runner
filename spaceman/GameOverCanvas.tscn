@@ -1,0 +1,59 @@
+[gd_scene load_steps=7 format=3 uid="uid://pk1l5dbbbjb8"]
+
+[ext_resource type="Script" path="res://GameOverCanvas.cs" id="1_lga8x"]
+[ext_resource type="FontFile" uid="uid://co2uop2d6fkpb" path="res://font/Retro Gaming.ttf" id="1_tyywi"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_utqjp"]
+bg_color = Color(0.27243, 0.652223, 0.78775, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fwd6a"]
+bg_color = Color(0.226436, 0.653051, 0.813867, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j5b7e"]
+bg_color = Color(0.954696, 0.393645, 0.347459, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_exwlg"]
+bg_color = Color(0.952941, 0.141176, 0.34902, 1)
+
+[node name="GameOverCanvas" type="CanvasLayer"]
+script = ExtResource("1_lga8x")
+
+[node name="Restart" type="Button" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_tyywi")
+theme_override_font_sizes/font_size = 70
+theme_override_styles/normal = SubResource("StyleBoxFlat_utqjp")
+theme_override_styles/hover = SubResource("StyleBoxFlat_fwd6a")
+text = "RESTART"
+
+[node name="Quit" type="Button" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -106.0
+offset_top = 71.0
+offset_right = 112.0
+offset_bottom = 169.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 1.00278)
+theme_override_fonts/font = ExtResource("1_tyywi")
+theme_override_font_sizes/font_size = 70
+theme_override_styles/normal = SubResource("StyleBoxFlat_j5b7e")
+theme_override_styles/hover = SubResource("StyleBoxFlat_exwlg")
+text = "QUIT"
+
+[connection signal="pressed" from="Restart" to="." method="OnRestartClicked"]
+[connection signal="pressed" from="Quit" to="." method="OnQuitGame"]

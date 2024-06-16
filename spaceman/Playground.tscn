@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cot87blry38gj"]
+[gd_scene load_steps=10 format=3 uid="uid://cot87blry38gj"]
 
 [ext_resource type="Script" path="res://Playground.cs" id="1_fxw82"]
 [ext_resource type="PackedScene" uid="uid://b33yviw6wfyoe" path="res://Background.tscn" id="1_qqqyn"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://AsteroidBounds.cs" id="6_ln3tv"]
 [ext_resource type="Script" path="res://Spawner.cs" id="7_0u0bu"]
 [ext_resource type="PackedScene" uid="uid://c2cjawy2vgtg0" path="res://ScoreCanvas.tscn" id="8_iv1fp"]
+[ext_resource type="PackedScene" uid="uid://pk1l5dbbbjb8" path="res://GameOverCanvas.tscn" id="9_iw4oa"]
 
 [node name="Playground" type="Node2D"]
 script = ExtResource("1_fxw82")
@@ -38,3 +39,6 @@ script = ExtResource("7_0u0bu")
 _bounds = NodePath("../AsteroidBounds")
 
 [node name="ScoreCanvas" parent="." instance=ExtResource("8_iv1fp")]
+
+[node name="GameOverCanvas" parent="." instance=ExtResource("9_iw4oa")]
+process_mode = 2
