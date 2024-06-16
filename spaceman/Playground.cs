@@ -133,6 +133,8 @@ public partial class Playground : Node2D
 	private void RestartGame()
 	{
 		_gameOverCanvas.Hide();
+		_score = 0;
+		UpdateScore();
 		RemoveAllObjectsBeforeRestart();
 		_spawner.RestartPosition();
 		_spawner.SpawnGroupOfAsteroids(4);
